@@ -334,11 +334,13 @@ def custom_caption(msg, caption):
         file_size = getattr(media, 'file_size', '')
         fcaption = getattr(msg, 'caption', '')
         if fcaption:
-          fcaption = fcaption.html
+          fcaption = clean_caption(fcaption.html)  # ⬅️ Clean original caption
         if caption:
-          return caption.format(filename=file_name, size=get_size(file_size), caption=fcaption)
-        return fcaption
+          formatted = caption.format(filename=file_name, size=get_size(file_size), caption=fcaption)
+          return f"⎈ {formatted}"  # ⬅️ Add ⎈ here
+        return f"⎈ {fcaption}"  # ⬅️ Or here
   return None
+
 
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
