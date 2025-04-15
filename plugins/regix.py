@@ -31,7 +31,18 @@ TEXT = Script.TEXT
 
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
-# Ask Doubt on telegram @KingVJ01
+# Ask Doubt on telegram @KingVJ
+
+def clean_caption(caption: str) -> str:
+    if not caption:
+        return ""
+    # Remove links (http/https)
+    caption = re.sub(r'https?://\S+', '', caption)
+    # Remove @mentions
+    caption = re.sub(r'@\w+', '', caption)
+    # Remove extra spaces
+    caption = re.sub(r'\s+', ' ', caption).strip()
+    return caption
 
 @Client.on_callback_query(filters.regex(r'^start_public'))
 async def pub_(bot, message):
