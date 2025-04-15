@@ -18,7 +18,7 @@ class  Script(object):
 ⏣ __ /stop - stop your ongoing tasks__
 ⏣ __ /reset - reset your settings__</b>
 
-<b><u>💢 Features:</b></u>
+<b><u>💎 Features:✨</b></u>
 <b>► __Forward message from public channel to your channel without admin permission. if the channel is private need admin permission, if you can't give admin permission then use userbot, but in userbot there is a chance to get your account ban so use extra account__
 
 New Features ✨
