@@ -304,7 +304,7 @@ async def edit(user, msg, title, status, sts):
    if status in ["cancelled", "completed"]:
       button.append([InlineKeyboardButton('• 🌚 ᴄᴏᴍᴘʟᴇᴛᴇᴅ 🌝 ​•', url='https://t.me/Real_Pirates')])
       random_sticker = random.choice(stickers)
-      await bot.send_sticker(
+      await edit(user, m, 'ᴄᴏᴍᴘʟᴇᴛᴇᴅ', "completed", sts, bot)
           chat_id=sts.get('TO'),  # Send the sticker to the destination channel
           sticker=random_sticker  # Choose a random sticker from the list
       )
