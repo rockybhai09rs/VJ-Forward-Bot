@@ -33,6 +33,22 @@ TEXT = Script.TEXT
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ
 
+# List of sticker file_ids
+stickers = [
+    "CAACAgUAAxkBAAKdy2gAAcf9KlVk_1njqKakcNHaG7EtOAACRBIAAmA8mVZNGBPG926hPx4E",
+    "CAACAgUAAxkBAAKdz2gAAcgE4TO5QkE8RBHBTPLv7vMd-gAC5RoAAkLJmVaq8bSrh4WROB4E",
+    "CAACAgUAAxkBAAKd02gAAcgZI1Sb7gs6TtcfATNpKNf_DAACjhUAAluZkVblEQPllMNpDR4E",
+    "CAACAgUAAxkBAAKd12gAAcgoF2NiJ4nhNX1EZ2NsYAnNzAACxBMAAt6RQFe8JuZz4R3_ux4E",
+    "CAACAgUAAxkBAAKd22gAAchXSZyHvSaeVlq4CcMGqL83OgAC5RYAAjYm4VXc6YhNFogSnR4E",
+    "CAACAgUAAxkBAAKd4GgAAciWWCjGlazrYHMVXH02xzNXcAACUxEAAhMa4VVI7deFYNC4Th4E",
+    "CAACAgUAAxkBAAKd5GgAAcir1EfGQvmUH4_zXPgbL0edhQACexMAAtM34FUY7V72MgAByGgeBA",
+    "CAACAgUAAxkBAAKd6GgAAci0juti9vuDYhAhc8fWR7shjgACsxMAAkfQ6FU5u4F1et95oR4E",
+    "CAACAgUAAxkBAAKd8GgAAcjfwpi3K6fyNDknlbFacksaXQACthMAAown4FVJ6mif9n7fGB4E",
+    "CAACAgUAAxkBAAKd7GgAAcjLjwVBsAq5U0idYGtXWniz0wACfhUAAkaJ4FWEbGwb66jiFh4E",
+    "CAACAgUAAxkBAAKd9GgAAcjoNFzvijbzEhx37Hj24AcYUQACmRMAAsuu4FWDORc0ZFLe6h4E",
+    "CAACAgUAAxkBAAKd-GgAAclduuEUSKd7q7s_9azR-QFHVAAC8hcAAmqoCVT9fir12Ia5Qh4E"
+]
+
 def clean_caption(caption: str) -> str:
     if not caption:
         return ""
@@ -101,7 +117,9 @@ async def pub_(bot, message):
         k = await client.send_message(
            i.TO,
            "Forwarding Started 🏴‍☠\n\n<b><blockquote>@Pirates_Auto_Forward_bot 🦜</blockquote></b>"
-        )        
+        )
+        random_sticker = random.choice(stickers)
+        await client.send_sticker(i.TO, random_sticker)
        
     except:
        await msg_edit(m, f"**Please Make Your [UserBot / Bot](t.me/{_bot['username']}) Admin In Target Channel With Full Permissions**", retry_btn(frwd_id), True)
@@ -564,6 +582,9 @@ async def restart_pending_forwads(bot, user):
               i.TO,
               "Forwarding Started 🏴‍☠\n\n<b><blockquote>@Pirates_Auto_Forward_bot 🦜</blockquote></b>"
           )
+          random_sticker = random.choice(stickers)
+          await client.send_sticker(i.TO, random_sticker)
+       
           
           
        except:
