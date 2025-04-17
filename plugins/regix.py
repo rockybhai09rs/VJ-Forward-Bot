@@ -103,7 +103,7 @@ async def pub_(bot, message):
         "Forwarding Started 🏴‍☠\n\n<b><blockquote>Cheers, <a href='https://t.me/Pirates_Auto_Forward_bot'>Pirates_Auto_Forward_bot</a> 🦜</blockquote></b>"
     )
        await asyncio.sleep(18000)  # 5 hours in seconds
-       await k.delete()
+       
     except:
        await msg_edit(m, f"**Please Make Your [UserBot / Bot](t.me/{_bot['username']}) Admin In Target Channel With Full Permissions**", retry_btn(frwd_id), True)
        return await stop(client, user)
