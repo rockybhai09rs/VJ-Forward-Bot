@@ -303,11 +303,11 @@ async def edit(user, msg, title, status, sts):
    estimated_total_time = estimated_total_time if estimated_total_time != '' else '0 s'
    if status in ["cancelled", "completed"]:
       button.append([InlineKeyboardButton('• 🌚 ᴄᴏᴍᴘʟᴇᴛᴇᴅ 🌝 ​•', url='https://t.me/Real_Pirates')])
-       random_sticker = random.choice(stickers)
-       await bot.send_sticker(
-           chat_id=sts.get('TO'),  # Send the sticker to the destination channel
-           sticker=random_sticker  # Choose a random sticker from the list
-       )
+      random_sticker = random.choice(stickers)
+      await bot.send_sticker(
+          chat_id=sts.get('TO'),  # Send the sticker to the destination channel
+          sticker=random_sticker  # Choose a random sticker from the list
+      )
    else:
       button.append([InlineKeyboardButton('🚫 ᴄᴀɴᴄᴇʟ 🚫', 'terminate_frwd')])
    await msg_edit(msg, text, InlineKeyboardMarkup(button))
