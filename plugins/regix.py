@@ -202,8 +202,7 @@ async def pub_(bot, message):
 async def copy(user, bot, msg, m, sts):
     try:
         # Clean and add ⎈ to caption
-        caption = f"⎈ {clean_caption(msg.get('caption'))}"
-
+        caption = f"⎈ {msg.get('caption') or ''}"
         if msg.get("media") and msg.get("caption"):
             await bot.send_cached_media(
                 chat_id=sts.get('TO'),
