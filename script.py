@@ -2,12 +2,19 @@ import os
 from config import Config
 
 class  Script(object):
-  START_TXT = """<b>ʜɪ {}
-  
-ɪ'ᴍ ᴀ ᴀᴅᴠᴀɴᴄᴇᴅ ꜰᴏʀᴡᴀʀᴅ ʙᴏᴛ
-ɪ ᴄᴀɴ ꜰᴏʀᴡᴀʀᴅ ᴀʟʟ ᴍᴇssᴀɢᴇ ꜰʀᴏᴍ ᴏɴᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴀɴᴏᴛʜᴇʀ ᴄʜᴀɴɴᴇʟ</b>
+  START_TXT = """<b>👋 Ahoy, <blockquote>{}</blockquote> ⚓</b>
 
-**ᴄʟɪᴄᴋ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴ ᴛᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ ᴀʙᴏᴜᴛ ᴍᴇ**"""
+<b>🤖 I’m your Smart Forward Bot!</b>
+<i>🚀 I can forward all posts from any <b>Private</b> or <b>Public</b> channel to your own channel — fast and easy.</i>
+
+<b>✨ Fully Automated  
+⚡ Super Fast  
+🔐 Safe & Reliable</b>
+<i>😉 Sit back, relax, and let me handle the forwarding like a pro! 😎🏴‍☠️</i>
+
+<b>💡 Tap the <u>Help</u> button below to learn how to use me.</b>
+"""
+
   HELP_TXT = """<b><u>🔆 Help</b></u>
 
 <u>**📚 Available commands:**</u>
