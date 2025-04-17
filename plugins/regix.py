@@ -279,6 +279,9 @@ async def msg_edit(msg, text, button=None, wait=None):
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
+async def send_random_sticker(i):
+    random_sticker = random.choice(stickers)  # Randomly pick a sticker
+    await client.send_sticker(i.TO, random_sticker)  # Send the sticker to the user
 
 async def edit(user, msg, title, status, sts):
    i = sts.get(full=True)
@@ -300,6 +303,11 @@ async def edit(user, msg, title, status, sts):
    estimated_total_time = estimated_total_time if estimated_total_time != '' else '0 s'
    if status in ["cancelled", "completed"]:
       button.append([InlineKeyboardButton('• 🌚 ᴄᴏᴍᴘʟᴇᴛᴇᴅ 🌝 ​•', url='https://t.me/Real_Pirates')])
+       random_sticker = random.choice(stickers)
+       await bot.send_sticker(
+           chat_id=sts.get('TO'),  # Send the sticker to the destination channel
+           sticker=random_sticker  # Choose a random sticker from the list
+       )
    else:
       button.append([InlineKeyboardButton('🚫 ᴄᴀɴᴄᴇʟ 🚫', 'terminate_frwd')])
    await msg_edit(msg, text, InlineKeyboardMarkup(button))
