@@ -565,10 +565,10 @@ async def restart_pending_forwads(bot, user):
           return await stop(client, user)
        try:
     # Send a test message to the target chat
-    k = await client.send_message(i.TO, "Testing")
+           k = await client.send_message(i.TO, "Testing")
     
     # Pin the sent message
-    await client.pin_message(i.TO, k.message_id)
+           await client.pin_message(i.TO, k.message_id)
 
 except Exception as e:
     print(f"Error: {e}")
