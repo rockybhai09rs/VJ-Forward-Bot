@@ -98,8 +98,11 @@ async def pub_(bot, message):
        await msg_edit(m, f"**Source chat may be a private channel / group. Use userbot (user must be member over there) or  if Make Your [Bot](t.me/{_bot['username']}) an admin over there**", retry_btn(frwd_id), True)
        return await stop(client, user)
     try:
-       k = await client.send_message(i.TO, "Testing")
-       await client.pin_message(i.TO, k.message_id)
+       k = await client.send_message(i.TO, "Forwarding Started 🏴‍☠
+
+<b><blockquote> Cheers, <a href='https://t.me/Pirates_Auto_Forward_bot'>Pirates_Auto_Forward_ot</a> 🦜</blockquote></b>")
+       await asyncio.sleep(18000)  # 5 hours in seconds
+       await k.delete()
     except:
        await msg_edit(m, f"**Please Make Your [UserBot / Bot](t.me/{_bot['username']}) Admin In Target Channel With Full Permissions**", retry_btn(frwd_id), True)
        return await stop(client, user)
@@ -558,8 +561,11 @@ async def restart_pending_forwads(bot, user):
           return await stop(client, user)
        try:
         # Send a test message to the target chat
-          k = await client.send_message(i.TO, "Testing")
-          await client.pin_message(i.TO, k.message_id)
+          k = await client.send_message(i.TO, "Forwarding Started 🏴‍☠
+
+<b><blockquote> Cheers, <a href='https://t.me/Pirates_Auto_Forward_bot'>Pirates_Auto_Forward_ot</a> 🦜</blockquote></b>")
+          await asyncio.sleep(18000)  # 5 hours in seconds
+          await k.delete()
        except:
           await msg_edit(m, f"**Please Make Your [UserBot / Bot](t.me/{_bot['username']}) Admin In Target Channel With Full Permissions**", retry_btn(forward_id), True)
           return await stop(client, user)
