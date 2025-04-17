@@ -50,7 +50,7 @@ async def pub_(bot, message):
     temp.CANCEL[user] = False
     frwd_id = message.data.split("_")[2]
     if temp.lock.get(user) and str(temp.lock.get(user))=="True":
-      return await message.answer("please wait until previous task complete", show_alert=True)
+      return await message.answer("Please Wait Until Previous Task Complete", show_alert=True)
     sts = STS(frwd_id)
     if not sts.verify():
       await message.answer("your are clicking on my old button", show_alert=True)
@@ -58,7 +58,7 @@ async def pub_(bot, message):
     i = sts.get(full=True)
     if i.TO in temp.IS_FRWD_CHAT:
       return await message.answer("In Target chat a task is progressing. please wait until task complete", show_alert=True)
-    m = await msg_edit(message.message, "<code>verifying your data's, please wait.</code>")
+    m = await msg_edit(message.message, "🌚 Verifying Your Data's, Be Patience.")
     _bot, caption, forward_tag, datas, protect, button = await sts.get_data(user)
     filter = datas['filters']
     max_size = datas['max_size']
@@ -80,7 +80,7 @@ async def pub_(bot, message):
     else:
         extensions = None
     if not _bot:
-      return await msg_edit(m, "<code>You didn't added any bot. Please add a bot using /settings !</code>", wait=True)
+      return await msg_edit(m, "You didn't added any bot. Please add a bot using /settings !", wait=True)
     if _bot['is_bot'] == True:
         data = _bot['token']
     else:
@@ -540,7 +540,7 @@ async def restart_pending_forwads(bot, user):
        else:
            extensions = None
        if not _bot:
-          return await msg_edit(m, "<code>You didn't added any bot. Please add a bot using /settings !</code>", wait=True)
+          return await msg_edit(m, "You didn't added any bot. Please add a bot using /settings !", wait=True)
        if _bot['is_bot'] == True:
           data = _bot['token']
        else:
@@ -552,7 +552,7 @@ async def restart_pending_forwads(bot, user):
        except Exception as e:  
           return await m.edit(e)
        try:
-          await msg_edit(m, "<code>processing..</code>")
+          await msg_edit(m, "<code>Pirate Working...</code>")
        except:
           return await db.rmve_frwd(user)
        try: 
@@ -567,7 +567,7 @@ async def restart_pending_forwads(bot, user):
               "Forwarding Started 🏴‍☠\n\n<b><blockquote>Cheers, <a href='https://t.me/Pirates_Auto_Forward_bot'>Pirates_Auto_Forward_bot</a> 🦜</blockquote></b>"
           )
           await asyncio.sleep(18000)  # 5 hours in seconds
-          await k.delete()
+          
        except:
           await msg_edit(m, f"**Please Make Your [UserBot / Bot](t.me/{_bot['username']}) Admin In Target Channel With Full Permissions**", retry_btn(forward_id), True)
           return await stop(client, user)
