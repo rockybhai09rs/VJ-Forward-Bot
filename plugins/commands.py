@@ -28,10 +28,10 @@ main_buttons = [[
 ],[
     InlineKeyboardButton('💎 𝐅𝐫𝐞𝐞 𝐂𝐨𝐮𝐫𝐬𝐞𝐬 💎', url='https://t.me/GeniusJunctionX')
 ],[
-    InlineKeyboardButton('👨‍💻 ʜᴇʟᴘ', callback_data='help'),
+    InlineKeyboardButton('👨‍💻 𝐇𝐞𝐥𝐩 😎', callback_data='help'),
     InlineKeyboardButton('💁 ᴀʙᴏᴜᴛ', callback_data='about')
 ],[
-    InlineKeyboardButton('⚙ sᴇᴛᴛɪɴɢs', callback_data='settings#main')
+    InlineKeyboardButton('⚙ 𝐒𝐞𝐭𝐭𝐢𝐧𝐠𝐬 ⚡', callback_data='settings#main')
 ]]
 
 # Don't Remove Credit Tg - @VJ_Botz
