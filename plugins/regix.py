@@ -91,18 +91,17 @@ async def pub_(bot, message):
       await client.start()
     except Exception as e:  
       return await m.edit(e)
-    await msg_edit(m, "<code>processing..</code>")
+    await msg_edit(m, "Pirate Working...")
     try: 
        await client.get_messages(sts.get("FROM"), sts.get("limit"))
     except:
        await msg_edit(m, f"**Source chat may be a private channel / group. Use userbot (user must be member over there) or  if Make Your [Bot](t.me/{_bot['username']}) an admin over there**", retry_btn(frwd_id), True)
        return await stop(client, user)
     try:
-       k = await client.send_message(
-        i.TO,
-        "Forwarding Started 🏴‍☠\n\n<b><blockquote>Cheers, <a href='https://t.me/Pirates_Auto_Forward_bot'>Pirates_Auto_Forward_bot</a> 🦜</blockquote></b>"
-    )
-       await asyncio.sleep(18000)  # 5 hours in seconds
+        k = await client.send_message(
+           i.TO,
+           "Forwarding Started 🏴‍☠\n\n<b><blockquote>@Pirates_Auto_Forward_bot 🦜</blockquote></b>"
+        )        
        
     except:
        await msg_edit(m, f"**Please Make Your [UserBot / Bot](t.me/{_bot['username']}) Admin In Target Channel With Full Permissions**", retry_btn(frwd_id), True)
@@ -120,7 +119,7 @@ async def pub_(bot, message):
     await send(client, user, "<b>Fᴏʀᴡᴀᴅɪɴɢ sᴛᴀʀᴛᴇᴅ🔥</b>")
     sts.add(time=True)
     sleep = 1 if _bot['is_bot'] else 10
-    await msg_edit(m, "<code>processing...</code>") 
+    await msg_edit(m, "Pirate Working...") 
     temp.IS_FRWD_CHAT.append(i.TO)
     temp.lock[user] = locked = True
     dup_files = []
@@ -564,9 +563,9 @@ async def restart_pending_forwads(bot, user):
         # Send a test message to the target chat
           k = await client.send_message(
               i.TO,
-              "Forwarding Started 🏴‍☠\n\n<b><blockquote>Cheers, <a href='https://t.me/Pirates_Auto_Forward_bot'>Pirates_Auto_Forward_bot</a> 🦜</blockquote></b>"
+              "Forwarding Started 🏴‍☠\n\n<b><blockquote>@Pirates_Auto_Forward_bot 🦜</blockquote></b>"
           )
-          await asyncio.sleep(18000)  # 5 hours in seconds
+          
           
        except:
           await msg_edit(m, f"**Please Make Your [UserBot / Bot](t.me/{_bot['username']}) Admin In Target Channel With Full Permissions**", retry_btn(forward_id), True)
