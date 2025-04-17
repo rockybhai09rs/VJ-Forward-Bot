@@ -52,12 +52,16 @@ stickers = [
 def clean_caption(caption: str) -> str:
     if not caption:
         return ""
+    
+    # Replace @mentions with @Real_pirates
+    caption = re.sub(r'@\w+', '@Real_pirates', caption)
+    
     # Remove links (http/https)
     caption = re.sub(r'https?://\S+', '', caption)
-    # Remove @mentions
-    caption = re.sub(r'@\w+', '', caption)
+    
     # Remove extra spaces
     caption = re.sub(r'\s+', ' ', caption).strip()
+    
     return caption
 
 @Client.on_callback_query(filters.regex(r'^start_public'))
