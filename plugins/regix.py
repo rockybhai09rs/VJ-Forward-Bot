@@ -303,11 +303,10 @@ async def edit(user, msg, title, status, sts):
    estimated_total_time = estimated_total_time if estimated_total_time != '' else '0 s'
    if status in ["cancelled", "completed"]:
       button.append([InlineKeyboardButton('• 🌚 ᴄᴏᴍᴘʟᴇᴛᴇᴅ 🌝 ​•', url='https://t.me/Real_Pirates')])
-      random_sticker = random.choice(stickers)
-      await edit(user, m, 'ᴄᴏᴍᴘʟᴇᴛᴇᴅ', "completed", sts, bot)
-          chat_id=sts.get('TO'),  # Send the sticker to the destination channel
-          sticker=random_sticker  # Choose a random sticker from the list
-      )
+      try:
+          await msg.client.send_message(chat_id=i.TO, text="✅ ᴅᴏɴᴇ")
+      except Exception as e:
+          print(f"Failed to send done message: {e}")
    else:
       button.append([InlineKeyboardButton('🚫 ᴄᴀɴᴄᴇʟ 🚫', 'terminate_frwd')])
    await msg_edit(msg, text, InlineKeyboardMarkup(button))
