@@ -302,10 +302,17 @@ async def settings_query(bot, query):
         "**Successfully your database url deleted**",
         reply_markup=InlineKeyboardMarkup(buttons))
 
-  await query.message.edit_text(
-      "<b><u>💠 CUSTOM FILTERS 💠</b></u>\n\n**configure the type of messages which you want forward**",
-      reply_markup=await filters_buttons(user_id)
-  ) if query.message.text != "<b><u>💠 CUSTOM FILTERS 💠</b></u>\n\n**configure the type of messages which you want forward**" else await query.message.edit_reply_markup(reply_markup=await filters_buttons(user_id))
+  elif type == "filters":
+      text = "<b><u>💠 CUSTOM FILTERS 💠</b></u>\n\n**configure the type of messages which you want forward**"
+      reply_markup = await filters_buttons(user_id)
+
+      if query.message.text != text:
+          await query.message.edit_text(
+              text,
+              reply_markup=reply_markup
+          )
+      else:
+          await query.message.edit_reply_markup(reply_markup=reply_markup)
 
   elif type=="nextfilters":
      await query.edit_message_reply_markup( 
