@@ -364,8 +364,8 @@ def custom_caption(msg, caption):
           fcaption = clean_caption(fcaption.html)  # ⬅️ Clean original caption
         if caption:
           formatted = caption.format(filename=file_name, size=get_size(file_size), caption=fcaption)
-          return f"⎈ {formatted}"  # ⬅️ Add ⎈ here
-        return f"⎈ {fcaption}"  # ⬅️ Or here
+          return f" {formatted}"  # ⬅️ Add ⎈ here
+        return f" {fcaption}"  # ⬅️ Or here
   return None
 
 
