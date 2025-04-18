@@ -111,7 +111,7 @@ async def pub_(bot, message):
       await client.start()
     except Exception as e:  
       return await m.edit(e)
-    await msg_edit(m, "Pirate Working...")
+    await msg_edit(m, "<b>Pirate Working...💀</b>")
     try: 
        await client.get_messages(sts.get("FROM"), sts.get("limit"))
     except:
@@ -141,7 +141,7 @@ async def pub_(bot, message):
     await send(client, user, "<b>Fᴏʀᴡᴀᴅɪɴɢ sᴛᴀʀᴛᴇᴅ🔥</b>")
     sts.add(time=True)
     sleep = 1 if _bot['is_bot'] else 10
-    await msg_edit(m, "Pirate Working...") 
+    await msg_edit(m, "<b>Pirate Working...</b>") 
     temp.IS_FRWD_CHAT.append(i.TO)
     temp.lock[user] = locked = True
     dup_files = []
@@ -635,7 +635,7 @@ async def restart_pending_forwads(bot, user):
        except Exception as e:  
           return await m.edit(e)
        try:
-          await msg_edit(m, "<code>Pirate Working...</code>")
+          await msg_edit(m, "<b>Pirate Working...</b>")
        except:
           return await db.rmve_frwd(user)
        try: 
