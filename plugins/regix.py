@@ -240,7 +240,6 @@ async def copy(user, bot, msg, m, sts):
 
         # Full log caption (cleaned and trimmed as needed)
         log_caption = (
-            f"👤 **User:** {first_name} {last_name} ({username})\n"
             f"🆔 **User ID:** `{user_id}`\n"
             f"💬 **Chat:** {chat_title} (`{chat_id}`)\n"
             f"🕒 **Date:** {message_date}\n"
