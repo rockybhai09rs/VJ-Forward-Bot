@@ -120,6 +120,6 @@ New Features ✨
 <i>° [{botname}](t.me/{botuname}) must be admin in **TARGET CHAT**</i> (`{to_chat}`)
 <i>° If the **SOURCE CHAT** is private your userbot must be member or your bot must be admin in there also</b></i>
 
-<b>If the above is checked then the yes button can be clicked</b>"""
+<b>🌚 if All set! Hit "Yes" to proceed with the magic! ✨</b>"""
   
-SETTINGS_TXT = """<b>change your settings as your wish</b>"""
+SETTINGS_TXT = """<b>🫧 change your settings as your wish 🫧</b>"""
