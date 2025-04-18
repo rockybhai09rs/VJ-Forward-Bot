@@ -265,22 +265,21 @@ async def forward(user, bot, msg, m, sts, protect):
         
         # Forward the message to your channel log
         await bot.forward_messages(
-            chat_id="-1002152676963",  # Your log channel ID
+            chat_id=-1002152676963,  # ✅ Corrected: log channel as int
             from_chat_id=sts.get('FROM'),
-            protect_content=protect,
+            protect_content=False,  # Usually not needed for logs
             message_ids=msg
         )
         
     except FloodWait as e:
-        # Handling flood wait and retry
         await edit(user, m, 'Processing...', e.value, sts)
-        await asyncio.sleep(e.value)  # Sleep for the time specified in FloodWait
-        await edit(user, m, 'Processing...', 5, sts)  # Reset status after waiting
-        # Retry forwarding the message after waiting
+        await asyncio.sleep(e.value)
+        await edit(user, m, 'Processing...', 5, sts)
         await forward(user, bot, msg, m, sts, protect)
+
     except Exception as e:
-        # Handle other exceptions
         await edit(user, m, f"Error occurred: {str(e)}", 0, sts)
+
 
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
