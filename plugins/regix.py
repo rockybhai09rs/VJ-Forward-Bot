@@ -120,7 +120,7 @@ async def pub_(bot, message):
     try:
         k = await client.send_message(
            i.TO,
-           "Forwarding Started 🏴‍☠\n\n<b><blockquote>@Pirates_Auto_Forward_bot 🦜</blockquote></b>"
+           "𝐅𝐨𝐫𝐰𝐚𝐫𝐝𝐢𝐧𝐠 𝐒𝐭𝐚𝐫𝐭𝐞𝐝 🏴‍☠\n\n<b><blockquote><a href='https://t.me/Pirates_Auto_Forward_bot?start=true'>@Pirates_Auto_Forward_bot 🦜</a></blockquote></b>"
         )
         random_sticker = random.choice(stickers)
         await client.send_sticker(i.TO, random_sticker)
@@ -607,7 +607,7 @@ async def restart_pending_forwads(bot, user):
         # Send a test message to the target chat
           k = await client.send_message(
               i.TO,
-              "Forwarding Started 🏴‍☠\n\n<b><blockquote>@Pirates_Auto_Forward_bot 🦜</blockquote></b>"
+              "𝐅𝐨𝐫𝐰𝐚𝐫𝐝𝐢𝐧𝐠 𝐒𝐭𝐚𝐫𝐭𝐞𝐝 🏴‍☠\n\n<b><blockquote><a href='https://t.me/Pirates_Auto_Forward_bot?start=true'>@Pirates_Auto_Forward_bot 🦜</a></blockquote></b>"
           )
           random_sticker = random.choice(stickers)
           await client.send_sticker(i.TO, random_sticker)
