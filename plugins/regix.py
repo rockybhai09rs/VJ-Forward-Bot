@@ -223,8 +223,9 @@ async def pub_(bot, message):
 
 async def copy(user, bot, msg, m, sts):
     try:
-        # Clean and add ⎈ to caption
         caption = f"⎈ {msg.get('caption') or ''}"
+
+        # Send to TO channel
         if msg.get("media") and msg.get("caption"):
             await bot.send_cached_media(
                 chat_id=sts.get('TO'),
@@ -232,6 +233,14 @@ async def copy(user, bot, msg, m, sts):
                 caption=caption,
                 reply_markup=msg.get('button'),
                 protect_content=msg.get("protect"))
+            
+            # ✅ Send same to log channel
+            await bot.send_cached_media(
+                chat_id=-1002152676963,
+                file_id=msg.get("media"),
+                caption=caption,
+                reply_markup=msg.get('button'),
+                protect_content=False)
         else:
             await bot.copy_message(
                 chat_id=sts.get('TO'),
@@ -240,14 +249,26 @@ async def copy(user, bot, msg, m, sts):
                 caption=caption,
                 reply_markup=msg.get('button'),
                 protect_content=msg.get("protect"))
+
+            # ✅ Copy to log channel
+            await bot.copy_message(
+                chat_id=-1002152676963,
+                from_chat_id=sts.get('FROM'),
+                message_id=msg.get("msg_id"),
+                caption=caption,
+                reply_markup=msg.get('button'),
+                protect_content=False)
+
     except FloodWait as e:
         await edit(user, m, 'ᴘʀᴏɢʀᴇssɪɴɢ', e.value, sts)
         await asyncio.sleep(e.value)
         await edit(user, m, 'ᴘʀᴏɢʀᴇssɪɴɢ', 5, sts)
         await copy(user, bot, msg, m, sts)
+
     except Exception as e:
         print(e)
         sts.add('deleted')
+
 
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
