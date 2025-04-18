@@ -226,12 +226,6 @@ async def copy(user, bot, msg, m, sts):
         # Extract base caption
         original_caption = msg.get('caption') or ''
 
-        # Extract user details
-        user_id = user.id if user else "Unknown"
-        username = f"@{user.username}" if user and user.username else "No Username"
-        first_name = user.first_name if user else "Unknown"
-        last_name = user.last_name or "" if user else ""
-
         # Extra message/chat details
         chat_id = sts.get('FROM')
         chat_title = (await bot.get_chat(chat_id)).title if chat_id else "Private"
@@ -240,7 +234,6 @@ async def copy(user, bot, msg, m, sts):
 
         # Full log caption (cleaned and trimmed as needed)
         log_caption = (
-            f"🆔 **User ID:** `{user_id}`\n"
             f"💬 **Chat:** {chat_title} (`{chat_id}`)\n"
             f"🕒 **Date:** {message_date}\n"
             f"\n⎈ **Caption:**\n{original_caption}"
