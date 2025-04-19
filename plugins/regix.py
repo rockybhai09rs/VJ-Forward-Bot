@@ -29,7 +29,7 @@ logger.setLevel(logging.INFO)
 TEXT = Script.TEXT
 
 
-def remove_links(text):
+def clean_caption(text):
     if not text:
         return text
 
@@ -42,9 +42,11 @@ def remove_links(text):
     # Remove raw URLs
     text = re.sub(r'https?://\S+', '', text)
 
-    # Remove @mentions like @channelname or @userna
+    # Remove @mentions like @channelname or @username
+    text = re.sub(r'@[\w_]+', '', text)
 
     return text
+
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ
