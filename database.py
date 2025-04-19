@@ -1,21 +1,17 @@
 import motor.motor_asyncio
+from motor.motor_asyncio import AsyncIOMotorClient
 from config import Config
 
 class Db:
-    
-    
-client = MongoClient(Config.MONGO_URL)
-db = client["vj_forward"]
-log_pref = db["log_pref"]
-    
+
     def __init__(self, uri, database_name):
-        self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
+        self._client = AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
         self.bot = self.db.bots
         self.userbot = self.db.userbot 
         self.col = self.db.users
         self.nfy = self.db.notify
-        self.chl = self.db.channels 
+        self.chl = self.db.channels
 
     def new_user(self, id, name):
         return dict(
@@ -25,11 +21,24 @@ log_pref = db["log_pref"]
                 is_banned=False,
                 ban_reason="",
             ),
+            log_enabled=True  # Default log toggle is ON
         )
 
     async def add_user(self, id, name):
         user = self.new_user(id, name)
         await self.col.insert_one(user)
+
+    async def is_log_enabled(self, user_id: int) -> bool:
+        user = await self.col.find_one({"id": user_id})
+        return user.get("log_enabled", True) if user else True
+
+    async def toggle_log_status(self, user_id: int) -> bool:
+        current = await self.is_log_enabled(user_id)
+        new_status = not current
+        await self.col.update_one({"id": user_id}, {"$set": {"log_enabled": new_status}}, upsert=True)
+        return new_status
+
+    # All your other methods remain unchanged below..
 
     async def is_user_exist(self, id):
         user = await self.col.find_one({'id':int(id)})
@@ -214,14 +223,7 @@ log_pref = db["log_pref"]
    
     async def update_forward(self, user_id, details):
         await self.nfy.update_one({'user_id': user_id}, {'$set': {'details': details}})
-            async def is_log_enabled(user_id: int) -> bool:
-        data = log_pref.find_one({"_id": user_id})
-        return data.get("enabled", True) if data else True
+        
 
-    async def toggle_log(user_id: int) -> bool:
-        current = await is_log_enabled(user_id)
-        new_status = not current
-        log_pref.update_one({"_id": user_id}, {"$set": {"enabled": new_status}}, upsert=True)
-        return new_status
         
 db = Db(Config.DATABASE_URI, Config.DATABASE_NAME)
