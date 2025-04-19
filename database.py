@@ -15,8 +15,8 @@ class Db:
 
     def new_user(self, id, name):
         return dict(
-            id = id,
-            name = name,
+            id=id,
+            name=name,
             ban_status=dict(
                 is_banned=False,
                 ban_reason="",
@@ -28,14 +28,10 @@ class Db:
         user = self.new_user(id, name)
         await self.col.insert_one(user)
 
-if await is_log_enabled(user.id):
-    await bot.send_cached_media(
-        chat_id=LOG_CHANNEL_ID,
-        file_id=msg.get("media"),
-        caption=log_caption,
-        reply_markup=msg.get('button'),
-        protect_content=False
-    )
+    async def is_log_enabled(self, user_id: int) -> bool:
+        user = await self.col.find_one({"id": user_id})
+        return user.get("log_enabled", True) if user else True
+
     async def toggle_log_status(self, user_id: int) -> bool:
         current = await self.is_log_enabled(user_id)
         new_status = not current
