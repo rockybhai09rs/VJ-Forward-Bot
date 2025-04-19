@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from config import Config
 
-client = MongoClient(Config.MONGO_URL)
+client = MongoClient(Config.DATABASE_URI)
 db = client["vj_forward"]
 log_pref = db["log_pref"]
 
