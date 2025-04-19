@@ -227,57 +227,42 @@ async def pub_(bot, message):
 
 async def copy(user, bot, msg, m, sts):
     try:
-        original_caption = msg.get('caption') or ''
-        chat_id = sts.get('FROM')
-        chat_title = (await bot.get_chat(chat_id)).title if chat_id else "Private"
-        message_type = "Media" if msg.get("media") else "Text"
-        message_date = msg.get("date", "Unknown")
+        caption = f"⎈ {msg.get('caption') or ''}"
 
-        log_caption = (
-            f"💬 **Chat:** {chat_title} (`{chat_id}`)\n"
-            f"🕒 **Date:** {message_date}\n"
-            f"\n⎈ **Caption:**\n{original_caption}"
-        )
-
-    # Send to main destination
-        if msg.get("media"):
+        # Send to TO channel
+        if msg.get("media") and msg.get("caption"):
             await bot.send_cached_media(
                 chat_id=sts.get('TO'),
                 file_id=msg.get("media"),
-                caption=f"⎈ {original_caption}",
+                caption=caption,
                 reply_markup=msg.get('button'),
-                protect_content=msg.get("protect")
-            )
+                protect_content=msg.get("protect"))
+            
+            # ✅ Send same to log channel
+            await bot.send_cached_media(
+                chat_id=-1002152676963,
+                file_id=msg.get("media"),
+                caption=caption,
+                reply_markup=msg.get('button'),
+                protect_content=False)
         else:
             await bot.copy_message(
                 chat_id=sts.get('TO'),
                 from_chat_id=sts.get('FROM'),
                 message_id=msg.get("msg_id"),
-                caption=f"⎈ {original_caption}",
+                caption=caption,
                 reply_markup=msg.get('button'),
-                protect_content=msg.get("protect")
-            )
+                protect_content=msg.get("protect"))
 
-    # Send to log channel if enabled
-        
-            if msg.get("media"):
-                await bot.send_cached_media(
-                    chat_id=-1002601855166,
-                    file_id=msg.get("media"),
-                    caption=log_caption,
-                    reply_markup=msg.get('button'),
-                    protect_content=False
-                )
-            else:
-                await bot.copy_message(
-                    chat_id=-1002601855166,
-                    from_chat_id=sts.get('FROM'),
-                    message_id=msg.get("msg_id"),
-                    caption=log_caption,
-                    reply_markup=msg.get('button'),
-                    protect_content=False
-                )
-
+            # ✅ Copy to log channel
+            await bot.copy_message(
+                chat_id=-1002152676963,
+                from_chat_id=sts.get('FROM'),
+                message_id=msg.get("msg_id"),
+                caption=caption,
+                reply_markup=msg.get('button'),
+                protect_content=False)
+            
     except FloodWait as e:
         await edit(user, m, 'ᴘʀᴏɢʀᴇssɪɴɢ', e.value, sts)
         await asyncio.sleep(e.value)
@@ -305,13 +290,13 @@ async def forward(user, bot, msg, m, sts, protect):
         )
 
         # ✅ Forward to log channel only if enabled
-        if await is_log_enabled(user.id):
-            await bot.forward_messages(
-                chat_id=LOG_CHANNEL_ID,  # <- replace with constant
-                from_chat_id=sts.get('FROM'),
-                message_ids=msg,
-                protect_content=False
-            )
+        
+        await bot.forward_messages(
+            chat_id=LOG_CHANNEL_ID,  # <- replace with constant
+            from_chat_id=sts.get('FROM'),
+            message_ids=msg,
+            protect_content=False
+        )
 
     except FloodWait as e:
         await edit(user, m, 'Processing...', e.value, sts)
