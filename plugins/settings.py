@@ -464,9 +464,21 @@ async def settings_query(bot, query):
                       callback_data="settings#get_keyword")])
     await query.message.edit_text(text="**successfully deleted All Keywords**",
                                    reply_markup=InlineKeyboardMarkup(buttons))
+
+  elif type == "logtoggle":
+     log_status = await db.is_log_enabled(user_id)
+     new_status = await db.toggle_log_status(user_id)
+     status_text = "✅ Enabled" if new_status else "❌ Disabled"
+     buttons = [[InlineKeyboardButton("Back", callback_data="settings#main")]]
+     await query.message.edit_text(
+        f"<b>Log forwarding messages to log channel is now:</b>\n\n<b>Status:</b> {status_text}",
+        reply_markup=InlineKeyboardMarkup(buttons)
+     )
+
   elif type.startswith("alert"):
     alert = type.split('_')[1]
     await query.answer(alert, show_alert=True)
+     
 
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
@@ -511,6 +523,8 @@ def main_buttons():
        InlineKeyboardButton('🗃 MᴏɴɢᴏDB',
                     callback_data=f'settings#database')
        ],[
+       InlineKeyboardButton('📜 Lᴏɢ Mᴇssᴀɢᴇs',
+                    callback_data='settings#logtoggle'),
        InlineKeyboardButton('Exᴛʀᴀ Sᴇᴛᴛɪɴɢs 🧪',
                     callback_data=f'settings#extra')
        ],[
