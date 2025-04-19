@@ -7,16 +7,6 @@ class Db:
 client = MongoClient(Config.MONGO_URL)
 db = client["vj_forward"]
 log_pref = db["log_pref"]
-
-    async def is_log_enabled(user_id: int) -> bool:
-        data = log_pref.find_one({"_id": user_id})
-        return data.get("enabled", True) if data else True
-
-    async def toggle_log(user_id: int) -> bool:
-        current = await is_log_enabled(user_id)
-        new_status = not current
-        log_pref.update_one({"_id": user_id}, {"$set": {"enabled": new_status}}, upsert=True)
-        return new_status
     
     def __init__(self, uri, database_name):
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
@@ -224,5 +214,14 @@ log_pref = db["log_pref"]
    
     async def update_forward(self, user_id, details):
         await self.nfy.update_one({'user_id': user_id}, {'$set': {'details': details}})
+            async def is_log_enabled(user_id: int) -> bool:
+        data = log_pref.find_one({"_id": user_id})
+        return data.get("enabled", True) if data else True
+
+    async def toggle_log(user_id: int) -> bool:
+        current = await is_log_enabled(user_id)
+        new_status = not current
+        log_pref.update_one({"_id": user_id}, {"$set": {"enabled": new_status}}, upsert=True)
+        return new_status
         
 db = Db(Config.DATABASE_URI, Config.DATABASE_NAME)
