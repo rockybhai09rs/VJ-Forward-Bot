@@ -222,44 +222,28 @@ async def pub_(bot, message):
 
 async def copy(user, bot, msg, m, sts):
     try:
-        # Extract base caption
         original_caption = msg.get('caption') or ''
-
-        # Extra message/chat details
         chat_id = sts.get('FROM')
         chat_title = (await bot.get_chat(chat_id)).title if chat_id else "Private"
         message_type = "Media" if msg.get("media") else "Text"
         message_date = msg.get("date", "Unknown")
 
-        # Full log caption (cleaned and trimmed as needed)
         log_caption = (
             f"💬 **Chat:** {chat_title} (`{chat_id}`)\n"
             f"🕒 **Date:** {message_date}\n"
             f"\n⎈ **Caption:**\n{original_caption}"
         )
 
-        if msg.get("media") and msg.get("caption"):
-            # Send media to TO channel
+    # Send to main destination
+        if msg.get("media"):
             await bot.send_cached_media(
                 chat_id=sts.get('TO'),
                 file_id=msg.get("media"),
                 caption=f"⎈ {original_caption}",
                 reply_markup=msg.get('button'),
                 protect_content=msg.get("protect")
-            )
-
-
-            # Send media to log channel with full caption
-        if await is_log_enabled(user.id):
-            await bot.send_cached_media(
-                chat_id=LOG_CHANNEL_ID,
-                file_id=msg.get("media"),
-                caption=log_caption,
-                reply_markup=msg.get('button'),
-                protect_content=False
             )
         else:
-            # Copy text to TO channel
             await bot.copy_message(
                 chat_id=sts.get('TO'),
                 from_chat_id=sts.get('FROM'),
@@ -269,16 +253,25 @@ async def copy(user, bot, msg, m, sts):
                 protect_content=msg.get("protect")
             )
 
-            # Copy to log channel with updated caption
+    # Send to log channel if enabled
         if await is_log_enabled(user.id):
-            await bot.copy_message(
-                chat_id=LOG_CHANNEL_ID,
-                from_chat_id=sts.get('FROM'),
-                message_id=msg.get("msg_id"),
-                caption=log_caption,
-                reply_markup=msg.get('button'),
-                protect_content=False
-            )
+            if msg.get("media"):
+                await bot.send_cached_media(
+                    chat_id=LOG_CHANNEL_ID,
+                    file_id=msg.get("media"),
+                    caption=log_caption,
+                    reply_markup=msg.get('button'),
+                    protect_content=False
+                )
+            else:
+                await bot.copy_message(
+                    chat_id=LOG_CHANNEL_ID,
+                    from_chat_id=sts.get('FROM'),
+                    message_id=msg.get("msg_id"),
+                    caption=log_caption,
+                    reply_markup=msg.get('button'),
+                    protect_content=False
+                )
 
     except FloodWait as e:
         await edit(user, m, 'ᴘʀᴏɢʀᴇssɪɴɢ', e.value, sts)
@@ -857,3 +850,6 @@ async def complete_time(total_files, files_per_minute=30):
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ01
+
+
+
