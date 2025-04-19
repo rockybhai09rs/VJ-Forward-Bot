@@ -291,22 +291,23 @@ async def copy(user, bot, msg, m, sts):
 
 async def forward(user, bot, msg, m, sts, protect):
     try:
-        # Forward the message to the "To" channel
+        # Forward the message to the target channel
         await bot.forward_messages(
             chat_id=sts.get('TO'),
             from_chat_id=sts.get('FROM'),
             protect_content=protect,
             message_ids=msg
         )
-        
-        # Forward the message to your channel log
-        await bot.forward_messages(
-            chat_id=-1002601855166,  # ✅ Corrected: log channel as int
-            from_chat_id=sts.get('FROM'),
-            protect_content=False,  # Usually not needed for logs
-            message_ids=msg
-        )
-        
+
+        # ✅ Forward to log channel only if enabled
+        if await is_log_enabled(user.id):
+            await bot.forward_messages(
+                chat_id=LOG_CHANNEL_ID,  # <- replace with constant
+                from_chat_id=sts.get('FROM'),
+                message_ids=msg,
+                protect_content=False
+            )
+
     except FloodWait as e:
         await edit(user, m, 'Processing...', e.value, sts)
         await asyncio.sleep(e.value)
@@ -315,6 +316,7 @@ async def forward(user, bot, msg, m, sts, protect):
 
     except Exception as e:
         await edit(user, m, f"Error occurred: {str(e)}", 0, sts)
+
 
 
 # Don't Remove Credit Tg - @VJ_Botz
