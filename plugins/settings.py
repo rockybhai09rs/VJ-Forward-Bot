@@ -466,14 +466,32 @@ async def settings_query(bot, query):
                                    reply_markup=InlineKeyboardMarkup(buttons))
 
   elif type == "logtoggle":
-     log_status = await db.is_log_enabled(user_id)
-     new_status = await db.toggle_log_status(user_id)
-     status_text = "✅ Enabled" if new_status else "❌ Disabled"
-     buttons = [[InlineKeyboardButton("Back", callback_data="settings#main")]]
-     await query.message.edit_text(
-        f"<b>Log forwarding messages to log channel is now:</b>\n\n<b>Status:</b> {status_text}",
-        reply_markup=InlineKeyboardMarkup(buttons)
-     )
+    # Check if the log forwarding is enabled or disabled
+    log_status = await db.is_log_enabled(user_id)
+    new_status = await db.toggle_log_status(user_id)
+    # Set status text based on the new log status
+    status_text = "✅ Enabled" if new_status else "❌ Disabled"
+    
+    # Create the toggle button with On/Off and the Back button
+    toggle_buttons = [
+        [
+            InlineKeyboardButton(
+                "🟢 On" if new_status else "🔴 Off", 
+                callback_data="settings#logtoggle"
+            )
+        ],
+        [
+            InlineKeyboardButton("⬅️ Back", callback_data="settings#main")
+        ]
+    ]
+    
+    # Edit the message to reflect the updated log forwarding status
+    await query.message.edit_text(
+        f"<b>Log forwarding messages to the log channel is now:</b>\n\n"
+        f"<b>Status:</b> {status_text}",
+        reply_markup=InlineKeyboardMarkup(toggle_buttons)
+    )
+
 
   elif type.startswith("alert"):
     alert = type.split('_')[1]
