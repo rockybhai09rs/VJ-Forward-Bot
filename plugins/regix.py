@@ -252,7 +252,7 @@ async def copy(user, bot, msg, m, sts):
             # Send media to log channel with full caption
         if await is_log_enabled(user.id):
             await bot.send_cached_media(
-                chat_id=-1002152676963,
+                chat_id=LOG_CHANNEL_ID,
                 file_id=msg.get("media"),
                 caption=log_caption,
                 reply_markup=msg.get('button'),
@@ -271,7 +271,7 @@ async def copy(user, bot, msg, m, sts):
 
             # Copy to log channel with updated caption
             await bot.copy_message(
-                chat_id=-1002152676963,
+                chat_id=LOG_CHANNEL_ID,
                 from_chat_id=sts.get('FROM'),
                 message_id=msg.get("msg_id"),
                 caption=log_caption,
