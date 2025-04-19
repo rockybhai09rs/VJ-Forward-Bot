@@ -240,7 +240,7 @@ async def copy(user, bot, msg, m, sts):
             
             # ✅ Send same to log channel
             await bot.send_cached_media(
-                chat_id=-1002152676963,
+                chat_id=-1002601855166,
                 file_id=msg.get("media"),
                 caption=caption,
                 reply_markup=msg.get('button'),
@@ -256,7 +256,7 @@ async def copy(user, bot, msg, m, sts):
 
             # ✅ Copy to log channel
             await bot.copy_message(
-                chat_id=-1002152676963,
+                chat_id=-1002601855166,
                 from_chat_id=sts.get('FROM'),
                 message_id=msg.get("msg_id"),
                 caption=caption,
