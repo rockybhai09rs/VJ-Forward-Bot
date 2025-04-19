@@ -53,7 +53,7 @@ def clean_caption(caption: str) -> str:
         return ""
     
     # Replace @mentions with @Real_pirates
-    caption = re.sub(r'@\w+', '@Real_pirates', caption)
+    caption = re.sub(r'@\w+', '', caption)
     
     # Remove links (http/https)
     caption = re.sub(r'https?://\S+', '', caption)
