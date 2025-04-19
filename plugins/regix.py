@@ -270,6 +270,7 @@ async def copy(user, bot, msg, m, sts):
             )
 
             # Copy to log channel with updated caption
+        if await is_log_enabled(user.id):
             await bot.copy_message(
                 chat_id=LOG_CHANNEL_ID,
                 from_chat_id=sts.get('FROM'),
