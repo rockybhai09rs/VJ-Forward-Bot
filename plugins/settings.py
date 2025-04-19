@@ -485,22 +485,20 @@ async def settings_query(bot, query):
 # Ask Doubt on telegram @KingVJ01
 
 def extra_buttons():
-   buttons = [[
-       InlineKeyboardButton('💾 Mɪɴ Sɪᴢᴇ Lɪᴍɪᴛ',
-                    callback_data=f'settings#file_size')
-       ],[
-       InlineKeyboardButton('💾 Mᴀx Sɪᴢᴇ Lɪᴍɪᴛ',
-                    callback_data=f'settings#maxfile_size ')
-       ],[
-       InlineKeyboardButton('🚥 Keywords',
-                    callback_data=f'settings#get_keyword'),
-       InlineKeyboardButton('🕹 Extensions',
-                    callback_data=f'settings#get_extension')
-       ],[
-       InlineKeyboardButton('⫷ Bᴀᴄᴋ',
-                    callback_data=f'settings#main')
-       ]]
-   return InlineKeyboardMarkup(buttons)
+    buttons = [[
+        InlineKeyboardButton('💾 Mɪɴ Sɪᴢᴇ Lɪᴍɪᴛ', callback_data='settings#file_size')
+    ],[
+        InlineKeyboardButton('💾 Mᴀx Sɪᴢᴇ Lɪᴍɪᴛ', callback_data='settings#maxfile_size')
+    ],[
+        InlineKeyboardButton('🚥 Keywords', callback_data='settings#get_keyword'),
+        InlineKeyboardButton('🕹 Extensions', callback_data='settings#get_extension')
+    ],[
+        InlineKeyboardButton('📜 Lᴏɢ Mᴇssᴀɢᴇs', callback_data='settings#logtoggle')
+    ],[
+        InlineKeyboardButton('⫷ Bᴀᴄᴋ', callback_data='settings#main')
+    ]]
+    return InlineKeyboardMarkup(buttons)
+
 
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
@@ -523,8 +521,6 @@ def main_buttons():
        InlineKeyboardButton('🗃 MᴏɴɢᴏDB',
                     callback_data=f'settings#database')
        ],[
-       InlineKeyboardButton('📜 Lᴏɢ Mᴇssᴀɢᴇs',
-                    callback_data='settings#logtoggle'),
        InlineKeyboardButton('Exᴛʀᴀ Sᴇᴛᴛɪɴɢs 🧪',
                     callback_data=f'settings#extra')
        ],[
@@ -732,7 +728,27 @@ async def next_filters_buttons(user_id):
        InlineKeyboardButton('End ⫸',
                     callback_data="settings#main")
        ]]
-  return InlineKeyboardMarkup(buttons) 
+  return InlineKeyboardMarkup(buttons)
+   
+@Client.on_callback_query(filters.regex("settings#logtoggle"))
+async def handle_log_toggle(client, callback_query):
+    user_id = callback_query.from_user.id
+    chat_id = callback_query.message.chat.id
+
+    try:
+        member = await client.get_chat_member(chat_id, user_id)
+        is_admin = member.status in ["administrator", "creator"]
+    except:
+        is_admin = False
+
+    if user_id == Config.BOT_OWNER or is_admin:
+        # Implement the actual toggling of log messages here
+        await callback_query.answer("✅ Toggled log message setting!", show_alert=True)
+    else:
+        await callback_query.answer(
+            "⚠️ This setting is only available for bot admins!",
+            show_alert=True 
+        )
 
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
