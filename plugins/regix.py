@@ -307,7 +307,7 @@ async def forward(user, bot, msg, m, sts, protect):
         
         # Forward the message to your channel log
         await bot.forward_messages(
-            chat_id=-1002152676963,  # ✅ Corrected: log channel as int
+            chat_id=-1002601855166,  # ✅ Corrected: log channel as int
             from_chat_id=sts.get('FROM'),
             protect_content=False,  # Usually not needed for logs
             message_ids=msg
