@@ -28,6 +28,23 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 TEXT = Script.TEXT
 
+
+def remove_links(text):
+    if not text:
+        return text
+
+    # Remove markdown-style links [text](url)
+    text = re.sub(r'\[.*?\]\(https?://\S+\)', '', text)
+
+    # Remove HTML-style links <a href="url">text</a>
+    text = re.sub(r'<a\s+href="https?://\S+">.*?<\/a>', '', text)
+
+    # Remove raw URLs
+    text = re.sub(r'https?://\S+', '', text)
+
+    # Remove @mentions like @channelname or @userna
+
+    return text
 # Don't Remove Credit Tg - @VJ_Botz
 # Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
 # Ask Doubt on telegram @KingVJ
